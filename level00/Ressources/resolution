@@ -1,0 +1,32 @@
+#id (qui est on)
+: connecte avec le user level00
+
+# find/ -name getflag 2>/dev/null (recherche de l'executable getflag)
+: possede par root mais droit d'execution pour tous les users
+
+# ./getflag (essaie executer le script)
+: pas dinterdiction mais non token for you here try again
+
+(Une fois connecte en flag00 comme demande dans le sujet il devrait yavoir le token?
+il nous faut le mdp de flag00 ou faire une elevation de privileges)
+
+# cat /etc/password (voir la liste des users)
+: flag00:x:3000:3000::/home/flag/flag00:/bin/bash
+
+# /home/flag/flag00 (regarder dans le home de flag00 si on trouve qqch)
+
+: permission denied
+
+#find / -type f -user flag00 2>/dev/null -ls (recherche les fichier own par flag00)
+: deux fichiers avec droit de lecture, ils contiennent tout les deux la meme chaine de caractere 
+cdiiddwpgswtgt
+
+#utilisation dcode outils de reconnaissance de chiffrement
+reconnaissance code cesar ou chiffre rot
++15 nottoohardhere
+
+#su flag00
+
+#./getflag
+Check flag. Here is your token :
+x24ti5gi3x0ol2eh4esiuxias

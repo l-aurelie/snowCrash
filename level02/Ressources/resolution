@@ -1,0 +1,40 @@
+#ls
+level02.pcap
+
+#sudo apt install wireshark-qt (on installe wireshark pour lire les fichier pcap)
+
+#scp -P 4242 level02@10.0.2.4:/home/user/level02/level02.pcap . (copier le pcap sur le machine avec wireshark)
+
+#file > open > nomdufichier
+permission denied
+#chmod 777 level02.pcap
+
+Paquets format illisible (hexdump? )
+
+#'how to analyse pcap file in wireshark?' : analyze > follow > tcp stream
+..%..%..&..... ..#..'..$..&..... ..#..'..$.. .....#.....'........... .38400,38400....#.SodaCan:0....'..DISPLAY.SodaCan:0......xterm.........."........!........"..".....b........b....	B.
+..............................1.......!.."......"......!..........."........"..".............	..
+.....................
+Linux 2.6.38-8-generic-pae (::ffff:10.1.1.2) (pts/10)
+
+..wwwbugs login: l.le.ev.ve.el.lX.X
+..
+Password: ft_wandr...NDRel.L0L
+.
+..
+Login incorrect
+wwwbugs login: 
+
+#su flag02 ; password ft_wandr...NDRel.L0L
+su: Authentication failure
+
+# le loginl.le.ev.ve.el.lX.X ressemble a un mot avec des lettres en doubles apres les point, suppression des points et des lettre situe apres dans le mot de passe 
+su: Authentication failure
+
+#en hexdump les . sont des caracteres non affichables ? dans les option show and save data as [hexdump] on peut constater que les . corresponde a 7f soit DEL ce qui donne 
+
+#su flag02 ; password ft_waNDReL0L ; ./getflag
+Check flag.Here is your token :
+kooda2puivaav1idi4f57q8iq
+
+
